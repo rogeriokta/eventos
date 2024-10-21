@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos de Eventos JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-bottom: 30px;
+        }
+        button, input {
+            margin: 5px 0;
+            padding: 5px 10px;
+        }
+        .output {
+            margin-top: 10px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Principais Exemplos de Eventos JavaScript</h1>
+
+    <!-- Evento de clique (onclick) -->
+    <div class="container">
+        <h2>Evento: onclick</h2>
+        <button onclick="exibirMensagem()">Clique aqui!</button>
+        <p class="output" id="mensagem"></p>
+    </div>
+
+    <!-- Evento de foco (onfocus) -->
+    <div class="container">
+        <h2>Evento: onfocus</h2>
+        <input type="text" onfocus="mudarFundo(this)" onblur="resetarFundo(this)" placeholder="Foque aqui">
+    </div>
+
+    <!-- Evento de mudança (onchange) -->
+    <div class="container">
+        <h2>Evento: onchange</h2>
+        <select id="opcoes" onchange="mostrarSelecao()">
+            <option value="">Selecione uma opção</option>
+            <option value="Opção 1">Opção 1</option>
+            <option value="Opção 2">Opção 2</option>
+            <option value="Opção 3">Opção 3</option>
+        </select>
+        <p class="output" id="selecao"></p>
+    </div>
+
+    <!-- Evento de envio de formulário (onsubmit) -->
+    <div class="container">
+        <h2>Evento: onsubmit</h2>
+        <form onsubmit="return validarFormulario()">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+            <button type="submit">Enviar</button>
+            <p class="output" id="erro"></p>
+        </form>
+    </div>
+
+    <!-- Evento de teclado (onkeydown) -->
+    <div class="container">
+        <h2>Evento: onkeydown</h2>
+        <input type="text" onkeydown="mostrarTecla(event)" placeholder="Digite algo">
+        <p class="output" id="teclaPressionada"></p>
+    </div>
+
+    <script>
+        // Evento onclick
+        function exibirMensagem() {
+            document.getElementById('mensagem').innerText = "Você clicou no botão!";
+        }
+
+        // Evento onfocus e onblur
+        function mudarFundo(element) {
+            element.style.backgroundColor = "yellow";
+        }
+
+        function resetarFundo(element) {
+            element.style.backgroundColor = "";
+        }
+
+        // Evento onchange
+        function mostrarSelecao() {
+            const opcao = document.getElementById('opcoes').value;
+            document.getElementById('selecao').innerText = `Você selecionou: ${opcao}`;
+        }
+
+        // Evento onsubmit
+        function validarFormulario() {
+            const nome = document.getElementById('nome').value;
+            if (nome === "") {
+                document.getElementById('erro').innerText = "Por favor, preencha o campo Nome.";
+                return false; // Impede o envio do formulário
+            }
+            document.getElementById('erro').innerText = "";
+            alert("Formulário enviado com sucesso!");
+            return true;
+        }
+
+        // Evento onkeydown
+        function mostrarTecla(event) {
+            const tecla = event.key;
+            document.getElementById('teclaPressionada').innerText = `Você pressionou: ${tecla}`;
+        }
+    </script>
+
+</body>
+</html>

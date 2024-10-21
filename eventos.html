@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Todos os Eventos JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-bottom: 30px;
+        }
+        button, input, select {
+            margin: 5px 0;
+            padding: 5px 10px;
+        }
+        .output {
+            margin-top: 10px;
+            color: blue;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Exemplo de Uso de Eventos JavaScript</h1>
+
+    <!-- Eventos de Mouse -->
+    <div class="container">
+        <h2>Eventos de Mouse</h2>
+        <button onmouseover="mostrarMensagem('Mouse sobre o botão')" onmouseout="mostrarMensagem('Mouse saiu do botão')">Passe o mouse aqui</button>
+        <div class="box" onmousedown="mostrarMensagem('Mouse pressionado na caixa')" onmouseup="mostrarMensagem('Mouse solto na caixa')"></div>
+        <p class="output" id="msgMouse"></p>
+    </div>
+
+    <!-- Eventos de Teclado -->
+    <div class="container">
+        <h2>Eventos de Teclado</h2>
+        <input type="text" onkeydown="mostrarTecla('keydown', event)" onkeyup="mostrarTecla('keyup', event)" onkeypress="mostrarTecla('keypress', event)" placeholder="Digite algo">
+        <p class="output" id="msgTeclado"></p>
+    </div>
+
+    <!-- Eventos de Formulário -->
+    <div class="container">
+        <h2>Eventos de Formulário</h2>
+        <form onsubmit="return validarFormulario()" onreset="formResetado()">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" onchange="validarNome()">
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <button type="submit">Enviar</button>
+            <button type="reset">Resetar</button>
+        </form>
+        <p class="output" id="msgFormulario"></p>
+    </div>
+
+    <!-- Eventos de Janela -->
+    <div class="container">
+        <h2>Eventos de Janela</h2>
+        <button onclick="abrirJanela()">Abrir Janela</button>
+        <button onclick="redimensionar()">Redimensionar</button>
+        <button onclick="rolarParaBaixo()">Rolar para baixo</button>
+    </div>
+
+    <!-- Eventos de Foco e Blur -->
+    <div class="container">
+        <h2>Eventos de Foco e Blur</h2>
+        <input type="text" onfocus="mostrarMensagem('Campo focado')" onblur="mostrarMensagem('Campo desfocado')" placeholder="Foque/desfoque aqui">
+        <p class="output" id="msgFocoBlur"></p>
+    </div>
+
+    <!-- Eventos de Drag & Drop -->
+    <div class="container">
+        <h2>Eventos de Drag & Drop</h2>
+        <div id="dragSource" class="box" draggable="true" ondragstart="iniciarArrastar()" ondragend="finalizarArrastar()">Arraste-me</div>
+        <div id="dropTarget" class="box" ondragover="permitirSoltar(event)" ondrop="soltar(event)">Solte aqui</div>
+        <p class="output" id="msgDragDrop"></p>
+    </div>
+
+    <script>
+        // Função de mouse
+        function mostrarMensagem(msg) {
+            document.getElementById('msgMouse').innerText = msg;
+        }
+
+        // Funções de teclado
+        function mostrarTecla(tipo, event) {
+            document.getElementById('msgTeclado').innerText = `${tipo}: Tecla pressionada - ${event.key}`;
+        }
+
+        // Eventos de Formulário
+        function validarFormulario() {
+            const nome = document.getElementById('nome').value;
+            if (nome === "") {
+                document.getElementById('msgFormulario').innerText = "O campo Nome é obrigatório.";
+                return false;
+            }
+            document.getElementById('msgFormulario').innerText = "Formulário enviado com sucesso!";
+            return true;
+        }
+
+        function validarNome() {
+            const nome = document.getElementById('nome').value;
+            document.getElementById('msgFormulario').innerText = nome ? `Nome válido: ${nome}` : "Nome inválido";
+        }
+
+        function formResetado() {
+            document.getElementById('msgFormulario').innerText = "Formulário resetado.";
+        }
+
+        // Eventos de Janela
+        function abrirJanela() {
+            window.open("https://www.google.com", "_blank", "width=300,height=200");
+        }
+
+        function redimensionar() {
+            window.resizeTo(400, 400);
+        }
+
+        function rolarParaBaixo() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Eventos de Foco e Blur
+        function mostrarMensagem(msg) {
+            document.getElementById('msgFocoBlur').innerText = msg;
+        }
+
+        // Eventos de Drag & Drop
+        function iniciarArrastar() {
+            document.getElementById('msgDragDrop').innerText = "Iniciou o arraste.";
+        }
+
+        function finalizarArrastar() {
+            document.getElementById('msgDragDrop').innerText = "Finalizou o arraste.";
+        }
+
+        function permitirSoltar(event) {
+            event.preventDefault(); // Necessário para permitir o drop
+        }
+
+        function soltar(event) {
+            event.preventDefault();
+            document.getElementById('msgDragDrop').innerText = "Elemento solto com sucesso.";
+        }
+    </script>
+
+</body>
+</html>
